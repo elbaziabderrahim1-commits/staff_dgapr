@@ -20,4 +20,14 @@ jobs:
 
     - name: Build with Gradle
       run: |
-        echo "Building APK for staff_dgapr..."
+        echo "Creating project structure for build..."
+        mkdir -p app/src/main/java
+        # نسخ الملفات لي صاوبتي فالمكان الصحيح باش Gradle يبنيهم
+        cp *.kt app/src/main/java/ 2>/dev/null || :
+        
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug
+        path: |
+          *.kt
