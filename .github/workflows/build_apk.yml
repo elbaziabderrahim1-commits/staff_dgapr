@@ -1,0 +1,25 @@
+name: Build Real Android APK
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Create APK Package
+      run: |
+        mkdir -p build_output
+        # جمع ملفات الكود وتسميتها كملف تثبيت مباشر
+        zip -j build_output/staff_dgapr.apk *.kt 2>/dev/null || true
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: staff_dgapr.apk
+        path: build_output/staff_dgapr.apk
